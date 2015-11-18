@@ -49,7 +49,7 @@ func Endpoints() []string {
 }
 
 func upkeep(kAPI etcd.KeysAPI, iden string, opts *etcd.SetOptions) (err error) {
-	_, err = kAPI.Set(ctx.Background(), iden, "", opts)
+	_, err = kAPI.Set(ctx.Background(), iden, Advertise, opts)
 	return
 }
 
