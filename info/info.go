@@ -30,11 +30,11 @@ var (
 type NodeInfo struct {
 	Version   string `json:"version"`
 	Build     string `json:"build"`
-	Node      string `json:"node"`
-	Region    string `json:"region"`
-	Zone      string `json:"avail_zone"`
-	Public    string `json:"public_ipv4"`
-	Private   string `json:"local_ipv4"`
+	Node      string `json:"node,omitempty"`
+	Region    string `json:"region,omitempty"`
+	Zone      string `json:"avail_zone,omitempty"`
+	Public    string `json:"public_ipv4,omitempty"`
+	Private   string `json:"local_ipv4,omitempty"`
 	Discovery string `json:"discovery"`
 	Hearbeat  string `json:"heartbeat"`
 	TTL       string `json:"ttl"`
