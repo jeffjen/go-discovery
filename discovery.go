@@ -80,17 +80,16 @@ func Register(heartbeat time.Duration, ttl time.Duration) {
 			log.WithFields(f).Info("uptime")
 		}
 
-		// only update key TTL
-		opts.PrevExist = etcd.PrevExist
-
 		// Tick... Toc...
 		for {
 			select {
 			case <-t.C:
 				if err := upkeep(kAPI, iden, &opts); err != nil {
 					log.Error("2:", err)
+					opts.PrevExist = etcd.PrevIgnore
 				} else {
 					log.WithFields(f).Info("uptime")
+					opts.PrevExist = etcd.PrevExist
 				}
 			case <-work.Done():
 				log.WithFields(f).Info("abort")
