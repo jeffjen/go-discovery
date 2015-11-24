@@ -25,6 +25,8 @@ var (
 	NODE_PUBLIC_IPV4 = os.Getenv("NODE_PUBLIC_IPV4")
 
 	NODE_PRIVATE_IPV4 = os.Getenv("NODE_PRIVATE_IPV4")
+
+	MetaData string
 )
 
 type NodeInfo struct {
@@ -57,4 +59,16 @@ func Info(w http.ResponseWriter, r *http.Request) {
 		TTL:       disc.TTL.String(),
 		Timestamp: time.Now().Format(time.RFC3339),
 	})
+}
+
+func init() {
+	type metadata struct {
+		Node    string `json:"node,omitempty"`
+		Region  string `json:"region,omitempty"`
+		Zone    string `json:"avail_zone,omitempty"`
+		Public  string `json:"public_ipv4,omitempty"`
+		Private string `json:"local_ipv4,omitempty"`
+	}
+	b, _ := json.Marshal(metadata{NODE_NAME, NODE_REGION, NODE_AVAIL_ZONE, NODE_PUBLIC_IPV4, NODE_PRIVATE_IPV4})
+	MetaData = string(b)
 }
