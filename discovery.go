@@ -10,6 +10,11 @@ import (
 	"time"
 )
 
+const (
+	DefaultHeartbeat = 2 * time.Minute
+	DefaultTTL       = 2*time.Minute + 30*time.Second
+)
+
 var (
 	RegisterPath = "/srv/monitor"
 

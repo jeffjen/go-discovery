@@ -10,11 +10,6 @@ import (
 	"time"
 )
 
-const (
-	DefaultHeartbeat = 2 * time.Minute
-	DefaultTTL       = 2*time.Minute + 30*time.Second
-)
-
 var (
 	ErrRequireAdvertise = errors.New("Required flag --advertise missing")
 	ErrRequireDiscovery = errors.New("Required argument DISCOVERY_URI missing")
@@ -33,22 +28,22 @@ func Before(c *cli.Context) error {
 	}
 
 	if hbStr := c.String("heartbeat"); hbStr == "" {
-		heartbeat = DefaultHeartbeat
+		heartbeat = disc.DefaultHeartbeat
 	} else {
 		if hb, err := time.ParseDuration(hbStr); err != nil {
 			log.Warning(err)
-			heartbeat = DefaultHeartbeat
+			heartbeat = disc.DefaultHeartbeat
 		} else {
 			heartbeat = hb
 		}
 	}
 
 	if ttlStr := c.String("ttl"); ttlStr == "" {
-		ttl = DefaultTTL
+		ttl = disc.DefaultTTL
 	} else {
 		if t, err := time.ParseDuration(ttlStr); err != nil {
 			log.Warning(err)
-			ttl = DefaultTTL
+			ttl = disc.DefaultTTL
 		} else {
 			ttl = t
 		}
