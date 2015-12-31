@@ -49,10 +49,12 @@ func Before(c *cli.Context) error {
 		}
 	}
 
-	if pos := c.Args(); len(pos) != 1 {
-		return ErrRequireDiscovery
-	} else {
-		disc.Discovery = pos[0]
+	if disc.Discovery == "" {
+		if pos := c.Args(); len(pos) != 1 {
+			return ErrRequireDiscovery
+		} else {
+			disc.Discovery = pos[0]
+		}
 	}
 
 	// register monitor instance
